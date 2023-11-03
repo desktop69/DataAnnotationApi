@@ -8,6 +8,6 @@ urlpatterns = [
     path('Document/<int:pk>', DocumentDetails.as_view()),
     path('Annotation', AnnotationtList.as_view()),
     path('Annotation/<int:pk>', AnnotationDetails.as_view()),
-    path('hello/<int:id>/', FileGeneratorView.as_view()),
+    path('generator/<int:id>/', FileGeneratorView.as_view()),
 
 ]

@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from h11 import Response
 from rest_framework import generics
 from .models import Label, Document, Annotation
-from .serializers import LabelSerializer, DocumentSerializer, AnnotationSerializer
+from .serializers import GenerateDocumentSerializer, LabelSerializer, DocumentSerializer, AnnotationSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -38,17 +38,10 @@ class DocumentDetails(generics.RetrieveUpdateDestroyAPIView):
 
 class FileGeneratorView(APIView):
     def get(self, request, id):
-        # Fetch the file path from the request body
-        # file_path = request.data.get('file_path')
-
-        # if not file_path:
-        #     return Response("Please provide a file_path in the request body.", status=status.HTTP_400_BAD_REQUEST)
-        
         document = get_object_or_404(Document, pk=id)
-        serializer = DocumentSerializer(document)
+        serializer = GenerateDocumentSerializer(document)
         serialized_data = serializer.data  # Serialized document data with annotations
-        print(serialized_data)  # Print the serialized data in JSON format
-       
+        # print(serialized_data)  # Print the serialized data in JSON format
         # Specify the file path to save the JSON file
         file_path = "C:/Users/Public/ubiai/serialized_data.json"
         with open(file_path, 'w') as file:

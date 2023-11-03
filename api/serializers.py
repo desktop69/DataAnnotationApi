@@ -12,6 +12,12 @@ class AnnotationSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 class DocumentSerializer(serializers.ModelSerializer):
+  #  annotations = AnnotationSerializer(many=True, read_only=True)   # problem is here bro
+    class Meta:
+        model = Document
+        fields = ('__all__')
+
+class GenerateDocumentSerializer(serializers.ModelSerializer):
     annotations = AnnotationSerializer(many=True, read_only=True)   # problem is here bro
     class Meta:
         model = Document
